@@ -3,4 +3,4 @@
 
 ### 개발 환경
 - Sprig Boot
-- Vue 3.x
+- React
