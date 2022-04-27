@@ -2,7 +2,6 @@ package com.example.chat_backend.config;
 
 import com.example.chat_backend.constant.KafkaConstants;
 import com.example.chat_backend.db.model.Message;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
