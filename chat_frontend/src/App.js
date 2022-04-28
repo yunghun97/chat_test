@@ -39,7 +39,7 @@ function App() {
       {user !== null ? (
         <div className="chat-container">
           <SockJsClient
-            url={"http://localhost:9998/my-chat/"}
+            url={"http://k6b102.p.ssafy.io:9998/my-chat/"}
             topics={["/topic/group"]}
             onConnect={console.log("connected!")}
             onDisconnect={console.log("disconnected!")}
