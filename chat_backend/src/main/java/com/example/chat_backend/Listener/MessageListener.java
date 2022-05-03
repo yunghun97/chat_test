@@ -1,7 +1,9 @@
 package com.example.chat_backend.Listener;
 
+import com.example.chat_backend.config.WebSocketConfig;
 import com.example.chat_backend.constant.KafkaConstants;
 import com.example.chat_backend.db.model.Message;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -13,12 +15,18 @@ public class MessageListener {
     SimpMessagingTemplate template;
 
     @KafkaListener(
-            topics = KafkaConstants.KAFKA_TOPIC,
-            groupId = KafkaConstants.GROUP_ID
+            topics = {
+                    KafkaConstants.KAFKA_TOPIC,
+            },
+            groupId = "foo"
     )
-    public void listen(Message message){
-        template.convertAndSend("/topic/group", message);
+    public void listen(ConsumerRecord<String, Message> record){
+        System.out.println(record.key());
+        System.out.println(record.value().toString());
+        template.convertAndSend("/topic/"+record.key(), record.value());
+
     }
+
 
 }
 /*

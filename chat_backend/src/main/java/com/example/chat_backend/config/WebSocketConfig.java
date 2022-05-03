@@ -14,11 +14,11 @@ public class WebSocketConfig  implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/my-chat").setAllowedOriginPatterns("*").withSockJS();
     }
 
-    @Override
+    /*@Override
     public void configureMessageBroker(MessageBrokerRegistry registry){
         registry.setApplicationDestinationPrefixes("/kafka");
         registry.enableSimpleBroker("/topic/");
-    }
+    }*/
 
 }
 

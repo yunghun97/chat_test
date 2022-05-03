@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 const api = Axios.create({
-  baseURL: "http://k6b102.p.ssafy.io:9998/kafka",
+  baseURL: "http://localhost:9998/kafka",
 });
 
 const chatAPI = {
@@ -10,8 +10,9 @@ const chatAPI = {
     return api.get(`/messages/${groupId}`);
   },
 
-  sendMessage: (username, text) => {
-    let msg = {
+  sendMessage: (server, username, text) => {
+    let msg = {      
+      server: server,
       author: username,
       content: text,
     };
