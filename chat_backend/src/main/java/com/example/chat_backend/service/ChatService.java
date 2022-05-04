@@ -20,9 +20,9 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class ChatService {
 
-    private final String broker1 = "주소:9091";
-    private final String broker2 = "주소:9092";
-    private final String broker3 = "주소:9093";
+    private final String broker1 = "k6b102.p.ssafy.io:9091";
+    private final String broker2 = "k6b102.p.ssafy.io:9092";
+    private final String broker3 = "k6b102.p.ssafy.io:9093";
 
     private String defaultTopic = "chat-test";
 //    private HashMap<String, Boolean> topicMap;
