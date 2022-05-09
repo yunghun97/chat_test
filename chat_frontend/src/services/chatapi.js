@@ -18,7 +18,7 @@ const chatAPI = {
     return await api.post(`/publish`, msg, {
       headers: { "Content-Type": "application/json" },
     });
-  },
+  },  
 };
 
 export default chatAPI;
