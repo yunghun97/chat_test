@@ -1,28 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 
-function Login({ handleOnSubmit }) {
-  const [name, setName] = useState("");
-
-  const handleOnChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleSubmit = () => {
-    handleOnSubmit(name);
-  };
-  
+function Chat({ messages, currentUser }) {
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="사용할 닉네임을 입력하세요."
-          value={name}
-          onChange={handleOnChange}
-        />
-        <button type="submit">Go!</button>
-      </form>
+      <h3>{currentUser.name}의 채팅창</h3>
+      {messages.map((msg, index) => (
+        <div key={index}>
+          <span
+            style={{
+              fontSize: "1.2rem",
+              color:
+                msg.author === currentUser.name ? currentUser.color : "#000000",
+            }}
+          >{`[${msg.author}]`}</span>
+          <span style={{ fontSize: "1.2rem" }}>{` ${msg.content} `}</span>
+          <span style={{ fontSize: "0.7rem" }}>{`(${msg.timestamp})`}</span>
+        </div>
+      ))}
     </div>
   );
 }
 
-export default Login;
+export default Chat;
