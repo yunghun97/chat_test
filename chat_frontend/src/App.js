@@ -6,11 +6,10 @@ import Chat from "./pages/Chat";
 import Input from "./pages/Input";
 import Login from "./pages/Login";
 
-function App() {  
+function App() {
   const [messages, setMessages] = useState([]);
-  const [user, setUser] = useState(null);
-  var server;
-
+  const [user, setUser] = useState({ name: "", color: "" });
+  const [server, setServer] = useState("");
 
   const onMessageReceived = (msg) => {
     console.log("New Message Received!!", msg);
@@ -18,13 +17,13 @@ function App() {
   };
 
   const handleLoginSubmit = (name) => {
-    setUser({ name: name, color: randomColor() });
+    setUser({ name, color: randomColor() });
   };
-  const serverOnChange = (e) =>{
-    server = e.target.value;
-  }
-  const handleMessageSubmit = (msg) => {
-    chatApi
+  const serverOnChange = (e) => {
+    setServer(e.target.value);
+  };
+  const handleMessageSubmit = async (msg) => {
+    await chatApi
       .sendMessage(server, user.name, msg)
       .then((res) => {
         console.log("sent", res);
@@ -40,9 +39,14 @@ function App() {
 
   return (
     <>
-      <input placeholder="서버 입력하세요" value={server}
-          onChange={serverOnChange}/>
-      {user !== null ? (
+      <h2>서버 : {server}</h2>
+      <h2>닉네임 : {user.name}</h2>
+      <input
+        placeholder="서버 입력하세요"
+        value={server}
+        onChange={serverOnChange}
+      />
+      {user.name !== "" ? (
         <div className="chat-container">
           <SockJsClient
             url={"http://localhost:9998/my-chat/"}
@@ -52,8 +56,8 @@ function App() {
             onMessage={(msg) => onMessageReceived(msg)}
             debug={false}
           />
-          <Chat messages={messages} currentUser={user} />          
           <Input handleOnSubmit={handleMessageSubmit} />
+          <Chat messages={messages} currentUser={user} />
         </div>
       ) : (
         <Login handleOnSubmit={handleLoginSubmit} />

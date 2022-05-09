@@ -10,17 +10,15 @@ function Login({ handleOnSubmit }) {
   const handleSubmit = () => {
     handleOnSubmit(name);
   };
-  
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="사용할 닉네임을 입력하세요."
-          value={name}
-          onChange={handleOnChange}
-        />
-        <button type="submit">Go!</button>
-      </form>
+      <input
+        placeholder="사용할 닉네임을 입력하세요."
+        value={name}
+        onChange={handleOnChange}
+      />
+      <button onClick={handleSubmit}>Go!</button>
     </div>
   );
 }

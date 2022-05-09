@@ -9,13 +9,13 @@ const chatAPI = {
     console.log("Calling get messages from API");
   },
 
-  sendMessage: (server, username, text) => {
-    let msg = {      
+  sendMessage: async (server, username, text) => {
+    let msg = {
       server: server,
       author: username,
       content: text,
     };
-    return api.post(`/publish`, msg, {
+    return await api.post(`/publish`, msg, {
       headers: { "Content-Type": "application/json" },
     });
   },
