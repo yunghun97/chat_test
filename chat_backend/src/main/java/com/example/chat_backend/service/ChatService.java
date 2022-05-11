@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-@Component
 @Service
 public class ChatService {
 

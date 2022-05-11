@@ -1,0 +1,14 @@
+server:
+  port: 9998
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  redis:
+    host: k6b102.p.ssafy.io
+    port: 6380
+    password: imlah
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
