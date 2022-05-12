@@ -10,6 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ToString
 public class Message implements Serializable {
+    private String server;
     private String author;
     private String content;
     private String timestamp;

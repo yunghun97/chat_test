@@ -17,17 +17,11 @@ public class MessageListener {
             topics = KafkaConstants.KAFKA_TOPIC,
             groupId = KafkaConstants.GROUP_ID
     )
-    public void listen(ConsumerRecord<String, Message> record){
-        System.out.println(record.key());
-        System.out.println(record.value().toString()+" 이벤트 발생");
-        template.convertAndSend("/topic/"+record.key(), record.value());
+    public void listen(Message message){
+        System.out.println(message.toString()+"메시지 수신");
+        template.convertAndSend("/topic/"+message.getServer(), message);
 
     }
-
-    public void changeUserList(){
-
-    }
-
 
 }
 /*

@@ -28,9 +28,8 @@ public class ChatService {
 
     public void sendMessage(Map<String, String> map){
 
-        String server = map.get("server");
         Message message = new Message();
-        System.out.println(server);
+        message.setServer(map.get("server"));
         message.setAuthor(map.get("author"));
         message.setContent(map.get("content"));
         message.setTimestamp(LocalDateTime.now().toString());
@@ -42,7 +41,7 @@ public class ChatService {
 //        }
 
         try {
-            ProducerRecord<String, Message> record = new ProducerRecord<>(defaultTopic, server, message); //ProducerRecord 오브젝트를 생성합니다. (Topic,Key,Value) (Topic,Value)
+            ProducerRecord<String, Message> record = new ProducerRecord<>(defaultTopic, message); //ProducerRecord 오브젝트를 생성합니다. (Topic,Key,Value) (Topic,Value)
             RecordMetadata metadata = messageProducer.send(record).get(); //get() 메소드를 이용해 카프카의 응답을 기다립니다. 메시지가 성공적으로 전송되지 않으면 예외가 발생하고, 에러가 없다면 RecordMetadata를 얻게 됩니다.
             System.out.printf("Topic: %s, Partition: %d, Offset: %d, Key: %s, Received Message: %s\n", metadata.topic(), metadata.partition()
                     , metadata.offset(), record.key(), record.value());
