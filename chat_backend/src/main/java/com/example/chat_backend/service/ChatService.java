@@ -1,9 +1,6 @@
 package com.example.chat_backend.service;
 
 import com.example.chat_backend.db.model.Message;
-import org.apache.kafka.clients.admin.Admin;
-import org.apache.kafka.clients.admin.CreateTopicsResult;
-import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -13,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.concurrent.ExecutionException;
+import java.util.Map;
+import java.util.Properties;
 
 @Service
 public class ChatService {
@@ -31,6 +28,7 @@ public class ChatService {
 
         String server = map.get("server");
         Message message = new Message();
+        System.out.println(server);
         message.setAuthor(map.get("author"));
         message.setContent(map.get("content"));
         message.setTimestamp(LocalDateTime.now().toString());

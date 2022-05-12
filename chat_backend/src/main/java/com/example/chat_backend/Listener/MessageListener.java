@@ -1,6 +1,5 @@
 package com.example.chat_backend.Listener;
 
-import com.example.chat_backend.config.WebSocketConfig;
 import com.example.chat_backend.constant.KafkaConstants;
 import com.example.chat_backend.db.model.Message;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -15,15 +14,17 @@ public class MessageListener {
     SimpMessagingTemplate template;
 
     @KafkaListener(
-            topics = {
-                    KafkaConstants.KAFKA_TOPIC,
-            },
-            groupId = "foo"
+            topics = KafkaConstants.KAFKA_TOPIC,
+            groupId = KafkaConstants.GROUP_ID
     )
     public void listen(ConsumerRecord<String, Message> record){
         System.out.println(record.key());
-        System.out.println(record.value().toString());
+        System.out.println(record.value().toString()+" 이벤트 발생");
         template.convertAndSend("/topic/"+record.key(), record.value());
+
+    }
+
+    public void changeUserList(){
 
     }
 
