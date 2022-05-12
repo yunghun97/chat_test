@@ -49,11 +49,11 @@ function App() {
       {user.name !== "" ? (
         <div className="chat-container">
           <SockJsClient
-            url={"http://localhost:9998/my-chat/"}
+            url={"http://localhost:9998/my-chat"}
             topics={["/topic/group"]}
             onConnect={console.log("connected!")}
             onDisconnect={console.log("disconnected!")}
-            onMessage={(msg) => onMessageReceived(msg)}
+            onMessage={(msg) => onMessageReceived(msg)}            
             debug={false}
           />
           <Input handleOnSubmit={handleMessageSubmit} />
