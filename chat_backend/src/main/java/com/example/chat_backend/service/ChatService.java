@@ -1,6 +1,8 @@
 package com.example.chat_backend.service;
 
+import com.example.chat_backend.constant.KafkaConstants;
 import com.example.chat_backend.db.model.Message;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -48,65 +50,12 @@ public class ChatService {
             e.printStackTrace(); //카프카로 메시지를 보내기 전과 보내는 동안 에러가 발생하면 예외가 발생합니다.
         }
     }
-//    @MessageMapping("/sendMessage")
-//    @SendTo("/topic/group")
-//    public Message broadcastGroupMessage(@Payload Message message){
-//        return  message;
-//    }
-
-    /* Topic 나누어서 할 때
-    public boolean findTopic(String topicName){
-        return topicMap.containsKey(topicName);
-    }
-
-    public void createTopic(String server){
-        List<NewTopic> newTopics = new ArrayList<>();
-        int partition = 3;
-        short replication = 3;
-        Properties properties = new Properties();
-        properties.put("bootstrap.servers", broker1+","+broker2+","+broker3);
-        Admin admin = Admin.create(properties);
-        NewTopic topic = new NewTopic(server, partition, replication);
-        newTopics.add(topic);
-        admin.createTopics(newTopics);
-        try{
-            admin.createTopics(newTopics);
-            Set<String> topicNames = admin.listTopics().names().get();
-            while(true){
-                for(String topicName : topicNames) {
-                    if(topicName.equals(server)){
-                        topicMap.put(server,true);
-                        return;
-                    }
-                }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    // 처음 토픽 목록 가져오기
-    @PostConstruct
-    public void getAllTopic() throws ExecutionException, InterruptedException {
-        System.out.println("진입");
-        topicMap = new HashMap<>();
-        Properties properties = new Properties();
-        properties.put("bootstrap.servers", broker1);
-        Admin admin = Admin.create(properties);
-        Set<String> topicNames = admin.listTopics().names().get();
-        for(String topicName : topicNames){
-            topicMap.put(topicName,true);
-        }
-        System.out.println(topicMap.toString());
-        admin.close();
-    }
-    */
 
     // Producer 만들기
     @PostConstruct
     public void setMessageProducer(){
         Properties props = new Properties(); //Properties 오브젝트를 시작합니다.
-        props.put("bootstrap.servers", broker1+","+broker2+","+broker3); //브로커 리스트를 정의합니다.
+        props.put("bootstrap.servers", KafkaConstants.KAFKA_BROKER); //브로커 리스트를 정의합니다.
         props.put("key.serializer",
                 "org.apache.kafka.common.serialization.StringSerializer"); //메시지 키와 벨류에 문자열을 지정하므로 내장된 StringSerializer를 지정합니다.
         props.put("value.serializer",
