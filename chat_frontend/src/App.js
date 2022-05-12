@@ -50,10 +50,10 @@ function App() {
         <div className="chat-container">
           <SockJsClient
             url={"http://k6b1021.p.ssafy.io:9998/my-chat"}
-            topics={["/topic/group"]}
+            topics={[`/topic/${server}`]}
             onConnect={console.log("connected!")}
             onDisconnect={console.log("disconnected!")}
-            onMessage={(msg) => onMessageReceived(msg)}            
+            onMessage={(msg) => onMessageReceived(msg)}
             debug={false}
           />
           <Input handleOnSubmit={handleMessageSubmit} />
