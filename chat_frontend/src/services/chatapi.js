@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 const api = Axios.create({
-  baseURL: "http://localhost:9998/kafka",
+  baseURL: "http://k6b1021.p.ssafy.io:9998/kafka",
 });
 
 const chatAPI = {
