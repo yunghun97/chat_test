@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import SockJsClient from "react-stomp";
-import chatApi from "./services/chatapi";
+import chatApi from "./services/chatapi.js";
 
-import Chat from "./pages/Chat";
-import Input from "./pages/Input";
-import Login from "./pages/Login";
+import Chat from "./pages/Chat.js";
+import Input from "./pages/Input.js";
+import Login from "./pages/Login.js";
 
 function App() {
   const [messages, setMessages] = useState([]);
