@@ -3,6 +3,7 @@ package com.example.chat_backend.service;
 import com.example.chat_backend.db.entity.User;
 import com.example.chat_backend.db.model.UserDto;
 import com.example.chat_backend.db.repository.UserRedisRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,12 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
-    @Autowired
-    UserRedisRepository userRedisRepository;
 
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private final UserRedisRepository userRedisRepository;
+    
+    private final RedisTemplate<String, String> redisTemplate;
 
     @Override
     public List<User> enterUser(UserDto userDto){
