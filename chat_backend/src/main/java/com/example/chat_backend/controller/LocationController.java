@@ -22,6 +22,7 @@ public class LocationController {
     private final LocationService locationService;
 
     public ResponseEntity<Location> enterUser(@RequestBody Map<String, String> map){
-        return new ResponseEntity<>(, HttpStatus.OK);
+        Location location = new Location();
+        return new ResponseEntity<>(location, HttpStatus.OK);
     }
 }
