@@ -3,6 +3,7 @@ package com.example.chat_backend.controller;
 import com.example.chat_backend.db.entity.User;
 import com.example.chat_backend.db.model.UserDto;
 import com.example.chat_backend.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,11 +17,11 @@ import java.util.Map;
 @CrossOrigin(origins = "*", allowedHeaders ="*")
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
     HttpHeaders headers;
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     @PostMapping("/enter")
     public ResponseEntity<List<User>> enterUser(@RequestBody Map<String, String> map){

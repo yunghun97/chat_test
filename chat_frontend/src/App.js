@@ -54,7 +54,7 @@ function App() {
             onConnect={console.log("connected!")}
             onDisconnect={console.log("disconnected!")}
             onMessage={(msg) => onMessageReceived(msg)}
-            debug={false}
+            debug={true}
           />
           <Input handleOnSubmit={handleMessageSubmit} />
           <Chat messages={messages} currentUser={user} />
