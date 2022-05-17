@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import SockJsClient from "react-stomp";
-import chatApi from "./services/chatapi";
+import chatApi from "./services/chatapi.js";
+import SockJsClient from 'react-stomp';
 
-import Chat from "./pages/Chat";
-import Input from "./pages/Input";
-import Login from "./pages/Login";
+import Chat from "./pages/Chat.js";
+import Input from "./pages/Input.js";
+import Login from "./pages/Login.js";
+
+import {
+  StompSessionProvider,
+  useSubscription,
+} from "react-stomp-hooks";
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -12,7 +17,7 @@ function App() {
   const [server, setServer] = useState("");
 
   const onMessageReceived = (msg) => {
-    console.log("New Message Received!!", msg);
+    console.log("New Message Received!!"+msg);    
     setMessages(messages.concat(msg));
   };
 
@@ -47,15 +52,13 @@ function App() {
         onChange={serverOnChange}
       />
       {user.name !== "" ? (
-        <div className="chat-container">
-          <SockJsClient
-            url={"http://k6b1021.p.ssafy.io:9998/my-chat"}
-            topics={[`/topic/${server}`]}
-            onConnect={console.log("connected!")}
-            onDisconnect={console.log("disconnected!")}
-            onMessage={(msg) => onMessageReceived(msg)}
-            debug={true}
-          />
+        <div className="chat-container">        
+        <StompSessionProvider
+          url={"http://k6b1021.p.ssafy.io:9998/my-chat"}
+          //All options supported by @stomp/stompjs can be used here
+        >
+        <SubscribingComponent />
+        </StompSessionProvider>
           <Input handleOnSubmit={handleMessageSubmit} />
           <Chat messages={messages} currentUser={user} />
         </div>
@@ -64,6 +67,14 @@ function App() {
       )}
     </>
   );
+  function SubscribingComponent() {
+    const [lastMessage, setLastMessage] = useState("No message received yet");
+  
+    //Subscribe to /topic/test, and use handler for all received messages
+    //Note that all subscriptions made through the library are automatically removed when their owning component gets unmounted.
+    //If the STOMP connection itself is lost they are however restored on reconnect.
+    //You can also supply an array as the first parameter, which will subscribe to all destinations in the array
+    useSubscription(`/topic/${server}`, (message) => onMessageReceived(JSON.parse(message.body)));
+  }
 }
-
 export default App;
