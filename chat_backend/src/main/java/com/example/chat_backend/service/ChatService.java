@@ -33,7 +33,7 @@ public class ChatService {
         message.setAuthor(map.get("author"));
         message.setContent(map.get("content"));
         message.setTimestamp(LocalDateTime.now().toString());
-
+        System.out.println(message.toString());
 
 
 //        if(!findTopic(server)){ // 토픽이 없는 경우
