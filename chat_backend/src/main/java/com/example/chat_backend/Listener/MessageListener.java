@@ -11,6 +11,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 @Component
 @RequiredArgsConstructor
@@ -25,10 +26,13 @@ public class MessageListener {
             groupId = KafkaConstants.GROUP_ID
     )
     public void listen(Message message) throws IOException {
-        System.out.println(message.toString()+"메시지 수신");
-        byte[] byteArr = message.toString().getBytes();
+        HashMap<String, String> hMap = new HashMap<>();
+        hMap.put("author",message.getAuthor());
+        hMap.put("content",message.getContent());
+        hMap.put("timestamp",message.getTimestamp());
+        System.out.println(hMap.toString()+"메시지 수신");
+        byte[] byteArr = hMap.toString().getBytes();
         TextMessage textMessage = new TextMessage(byteArr);
-        System.out.println(chatHandler.getList());
         for(WebSocketSession sess: chatHandler.getList()) {
             sess.sendMessage(textMessage);
         }
