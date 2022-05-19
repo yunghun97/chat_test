@@ -10,8 +10,8 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 @Component
 public class WebSocketEventListener {
 
-    @Autowired
-    private SimpMessageSendingOperations simpMessageSendingOperations;
+//    @Autowired
+//    private SimpMessageSendingOperations simpMessageSendingOperations;
 
     // 소켓 연결
     @EventListener

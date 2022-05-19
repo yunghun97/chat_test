@@ -35,7 +35,6 @@ public class ChatService {
         message.setTimestamp(LocalDateTime.now().toString());
 
 
-
 //        if(!findTopic(server)){ // 토픽이 없는 경우
 //            createTopic(server);
 //        }
