@@ -12,6 +12,8 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 @Component
 @RequiredArgsConstructor
@@ -33,8 +35,8 @@ public class MessageListener {
         System.out.println(hMap.toString()+"메시지 수신");
         byte[] byteArr = hMap.toString().getBytes();
         TextMessage textMessage = new TextMessage(byteArr);
-        for(WebSocketSession sess: chatHandler.getList()) {
-            sess.sendMessage(textMessage);
+        for(Entry<String, WebSocketSession> entry : chatHandler.getSessionMap().entrySet()) {
+            entry.getValue().sendMessage(textMessage);
         }
 //        template.convertAndSend("/topic/"+message.getServer(), message);
 
