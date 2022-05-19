@@ -3,10 +3,9 @@ package com.example.chat_backend.Listener;
 import com.example.chat_backend.config.ChatHandler;
 import com.example.chat_backend.constant.KafkaConstants;
 import com.example.chat_backend.db.model.Message;
-import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -29,14 +28,12 @@ public class MessageListener {
             groupId = KafkaConstants.GROUP_ID
     )
     public void listen(Message message) throws IOException {
-        HashMap<String, Object> hMap = new HashMap<>();
+        HashMap<String, String> hMap = new HashMap<>();
         hMap.put("author",message.getAuthor());
         hMap.put("content",message.getContent());
         hMap.put("timestamp",message.getTimestamp());
-        Gson gson = new Gson();
-        String json = gson.toJson(hMap);
-        System.out.println(json+"메시지 수신");
-        byte[] byteArr = json.getBytes();
+        System.out.println(hMap.toString()+"메시지 수신");
+        byte[] byteArr = hMap.toString().getBytes();
         TextMessage textMessage = new TextMessage(byteArr);
         for(Entry<String, WebSocketSession> entry : chatHandler.getSessionMap().entrySet()) {
             entry.getValue().sendMessage(textMessage);
