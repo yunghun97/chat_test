@@ -15,7 +15,6 @@ import org.springframework.data.redis.core.RedisHash;
 @Setter
 public class User {
     @Id
-    private String server;
-    private String id;
-    private String loginTime;
+    private String author;
+    private String sessionId;
 }

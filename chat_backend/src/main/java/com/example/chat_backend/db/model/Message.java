@@ -9,8 +9,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Message implements Serializable {
-    private String server;
+public class Message extends MessageType implements Serializable {
+    private String sessionId;
     private String author;
     private String content;
     private String timestamp;
