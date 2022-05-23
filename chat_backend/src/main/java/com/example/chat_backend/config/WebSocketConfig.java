@@ -1,25 +1,21 @@
 package com.example.chat_backend.config;
 
+
+import com.example.chat_backend.handler.ChatHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
-import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
+import org.springframework.web.socket.config.annotation.*;
 
-@EnableWebSocketMessageBroker
 @Configuration
-public class WebSocketConfig  implements WebSocketMessageBrokerConfigurer {
+@RequiredArgsConstructor
+@EnableWebSocket
+public class WebSocketConfig  implements WebSocketConfigurer {
+    private final ChatHandler chatHandler;
     @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry){
-        registry.addEndpoint("/my-chat").setAllowedOriginPatterns("*").addInterceptors(new HttpSessionHandshakeInterceptor()).withSockJS();
-    }
-    /*@Override
-    public void configureMessageBroker(MessageBrokerRegistry registry){
-        registry.setApplicationDestinationPrefixes("/kafka");
-        registry.enableSimpleBroker("/topic/");
-    }*/
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+        registry.addHandler(chatHandler, "my-chat").setAllowedOrigins("*");
 
+    }
 }
 
 

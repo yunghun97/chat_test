@@ -6,6 +6,7 @@ import com.example.chat_backend.db.model.UserDto;
 import java.util.List;
 
 public interface UserService {
-    List<User> enterUser(UserDto userDto);
-    List<User> leaveUser(UserDto userDto);
+    List<User> enterUser(String author, String sessionId);
+    List<User> leaveUser(String author);
+    List<User> findUserByServer();
 }

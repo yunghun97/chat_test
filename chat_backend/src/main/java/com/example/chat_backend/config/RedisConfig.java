@@ -9,6 +9,8 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
+import javax.annotation.PostConstruct;
+
 @Configuration
 @EnableRedisRepositories
 public class RedisConfig {
@@ -29,7 +31,7 @@ public class RedisConfig {
     }
     @Bean
     public RedisTemplate<?, ?> redisTemplate(){
-        RedisTemplate<byte[], byte[]> template = new RedisTemplate<>();
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
         return template;
     }
